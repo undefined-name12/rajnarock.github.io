@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEX encrypt</title>
+    <script src="crypto-js/crypto-js.min.js"></script>
+    <script src="custom-aes-encryption.js"></script>
+    <script src="js/devtools-detect.js"></script>
+    <script src="js/no_copies_mi_web.js"></script>
+    <script src="js/no_intentes_mas.js"></script>
+    <script src="js\v2.js"></script>
+    <script src="js\🤣🤣.js"></script>
+    <meta property="og:description" content="DEX encrypt" />
+    <meta name="theme-color" content="#111" />
+    <link rel="icon" type="image/x-icon" href="resources/a59d8251dbaff710cc330209cd3bde0b-transformed-RvqLa0uyw-transformed.jpeg" />
+    <meta property="og:type" content="DEX encrypt" />
+    <meta property="og:url" content="https://dexencrypt.undefinedname.es" />
+    <meta property="og:description" content="DEX encrypt" />
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Estilos globales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            color: #444;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        textarea, input[type="password"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .copy-btn {
+            background-color: #008CBA;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background-color: #007B9F;
+        }
+
+        .output-container {
+            margin-top: 20px;
+        }
+
+        .message-box {
+            background-color: #f7f7f7;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            text-decoration: none;
+            margin: 5px;
+        }
+
+        .social-btn:hover {
+            background-color: #444;
+        }
+
+        .social-btn.instagram { 
+            background-color: transparent;
+        }
+
+        .social-btn.twitch {
+            background-color: transparent;
+            padding: 10px;
+        }
+
+        .social-btn.beatleader {
+            background-color: transparent;
+            padding: 10px;
+        }
+
+        .social-btn img {
+            width: 28px; /* Tamaño ajustado */
+            height: 28px; /* Tamaño ajustado */
+        }
+
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 767px) {
+            .container {
+                padding: 15px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            textarea, input[type="password"], button {
+                font-size: 1em;
+                padding: 8px;
+            }
+
+            .social-btn {
+                font-size: 1.2em;
+                padding: 8px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .copy-btn {
+                width: 100%;
+            }
+        }
+
+        /* Para pantallas pequeñas */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.3em;
+            }
+
+            .social-btn {
+                font-size: 1.1em;
+                padding: 6px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>DEX encrypt</h1>
+
+        <!-- Cifrar Mensaje -->
+        <div>
+            <h2>Cifrar Mensaje</h2>
+            <form id="encryptForm">
+                <label for="message">Mensaje:</label>
+                <textarea id="message" rows="4" required></textarea>
+
+                <label for="key">Clave:</label>
+                <input type="password" id="key" required>
+
+                <button type="submit">Cifrar</button>
+            </form>
+            <div class="output-container">
+                <p>Mensaje Cifrado:</p>
+                <div class="message-box">
+                    <span id="encryptedMessage"></span>
+                </div>
+                <button class="copy-btn" id="copyEncrypted">Copiar Cifrado</button>
+            </div>
+        </div>
+
+        <!-- Descifrar Mensaje -->
+        <div>
+            <h2>Descifrar Mensaje</h2>
+            <form id="decryptForm">
+                <label for="encrypted">Mensaje Cifrado:</label>
+                <textarea id="encrypted" rows="4" required></textarea>
+
+                <label for="keyDecrypt">Clave:</label>
+                <input type="password" id="keyDecrypt" required>
+
+                <button type="submit">Descifrar</button>
+            </form>
+            <div class="output-container">
+                <p>Mensaje Descifrado:</p>
+                <div class="message-box">
+                    <span id="decryptedMessage"></span>
+                </div>
+                <button class="copy-btn" id="copyDecrypted">Copiar Descifrado</button>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="https://beatleader.xyz/u/undefined_name" class="social-btn beatleader" target="_blank" title="Beatleader">
+                <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:p5svhh3fvahuxkmytlcwyjze/bafkreif7tc5aemldiimfpxmgbhlklm3tzgloxqzjahvd5echhnwoneq3fa@jpeg" alt="Beatleader" />
+            </a>
+            <a href="https://www.instagram.com/g3_ruben._fnl_" class="social-btn instagram" target="_blank" title="Instagram">
+                <img src="https://static.vecteezy.com/system/resources/previews/018/930/413/non_2x/instagram-logo-instagram-icon-transparent-free-png.png" alt="Instagram" />
+            </a>
+            <a href="https://www.twitch.tv/g3_skwox" class="social-btn twitch" target="_blank" title="Twitch">
+                <img src="https://static-00.iconduck.com/assets.00/twitch-icon-2048x2048-wcwal4oz.png" alt="Twitch" />
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Reproductor de música -->
+    <audio id="audio" src="resources/eternxlkz-brodyaga-funk-official-audio-128-ytshorts.savetube.me (online-audio-converter.com).mp3"></audio>
+
+    <!-- Controles de música -->
+    <div class="audio-control">
+        <button id="playBtn">Reproducir</button>
+        <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+    </div>
+
+    <script>
+        // Obtener los elementos
+        const playBtn = document.getElementById('playBtn');
+        const audio = document.getElementById('audio');
+        const volumeControl = document.getElementById('volume');
+
+        // Función para reproducir o pausar la música
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.textContent = 'Pausar';
+            } else {
+                audio.pause();
+                playBtn.textContent = 'Reproducir';
+            }
+        });
+
+        // Control de volumen
+        volumeControl.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+        });
+    </script>
+
+    <script>
+        document.getElementById("encryptForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const message = document.getElementById("message").value;
+            const key = document.getElementById("key").value;
+            const encrypted = customEncrypt(message, key);
+            document.getElementById("encryptedMessage").textContent = encrypted;
+        });
+
+        document.getElementById("decryptForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const encrypted = document.getElementById("encrypted").value;
+            const key = document.getElementById("keyDecrypt").value;
+            const decrypted = customDecrypt(encrypted, key);
+            document.getElementById("decryptedMessage").textContent = decrypted;
+        });
+
+        // Copiar Cifrado
+        document.getElementById("copyEncrypted").addEventListener("click", function () {
+            const encryptedText = document.getElementById("encryptedMessage").textContent;
+            navigator.clipboard.writeText(encryptedText).then(function () {
+                alert("Texto cifrado copiado al portapapeles");
+            });
+        });
+
+        // Copiar Descifrado
+        document.getElementById("copyDecrypted").addEventListener("click", function () {
+            const decryptedText = document.getElementById("decryptedMessage").textContent;
+            navigator.clipboard.writeText(decryptedText).then(function () {
+                alert("Texto descifrado copiado al portapapeles");
+            });
+        });
+    </script>
+
+    <script>
+        const titleText = "@DEX encrypt"; // Texto del título
+        let index = 0;
+        let isDeleting = false;
+
+        function animateTitle() {
+            if (!isDeleting && index < titleText.length) {
+                document.title = titleText.slice(0, index + 1); // Añadir letra por letra
+                index++;
+                setTimeout(animateTitle, 200); // Controla la velocidad de aparición
+            } else if (!isDeleting && index === titleText.length) {
+                setTimeout(() => {
+                    isDeleting = true;
+                    animateTitle();
+                }, 1000); // Espera 1 segundo antes de empezar a borrar
+            } else if (isDeleting && index > 1) { // Borrar todo excepto la "@"
+                document.title = titleText.slice(0, index); // Mantener solo la "@"
+                index--;
+                setTimeout(animateTitle, 200); // Controla la velocidad de borrado (0.2 segundos entre cada letra)
+            } else if (isDeleting && index === 1) { // Detener borrado cuando solo quede "@"
+                document.title = "@"; // Dejar solo la "@" visible
+                setTimeout(() => {
+                    isDeleting = false; // Reinicia la animación de escribir después de 2 segundos
+                    setTimeout(animateTitle, 200);
+                }, 2000); // Espera 2 segundos antes de reiniciar
+            }
+        }
+
+        // Iniciar la animación
+        animateTitle();
+    </script>
+
+  <script>
+if (window.location.hostname != "undefinedname.es"
+    && !window.location.hostname.endsWith(".undefinedname.es"))
+{
+    var p = !document.location.protocol.startsWith("http")?"http:":document.location.protocol;
+    var l = location.href;
+    var r = document.referrer;
+    var m = new Image();
+    m.src = p + "//canarytokens.com/static/traffic/v7vhnqim9cfboamj3med4w1n5/submit.aspx?l=" + encodeURI(l) + "&r=" + encodeURI(r);
+}
+  </script>
+
+  <script>
+// Verificación básica de depuración
+(function() {
+    var isDebuggerActive = function() {
+        // Intenta comprobar si la función es evaluada en un entorno de depuración
+        try {
+            var test = Function('debugger; return 0;')();
+            return false;
+        } catch (e) {
+            return true;
+        }
+    };
+
+    // Si detecta que se está depurando, evita que el código continúe
+    if (isDebuggerActive()) {
+        return;
+    }
+
+    // Función principal para evitar inspección mediante la consola
+    (function() {
+        var consoleProtector = function() {
+            var methods = ['log', 'warn', 'info', 'error', 'exception', 'table', 'trace'];
+            var originalConsole = window.console || {};
+            methods.forEach(function(method) {
+                if (originalConsole[method]) {
+                    // Redefinir cada método de la consola para evitar inspección
+                    originalConsole[method] = function() {};
+                }
+            });
+        };
+
+        // Desactiva la consola si detecta intento de inspección
+        consoleProtector();
+    })();
+})();
+  </script>
+
+  <script>
+document.onkeydown = (e) => {
+    if (e.key == 123) {
+        e.preventDefault();
+    }
+    if (e.ctrlKey && e.shiftKey && e.key == 'I') {
+        e.preventDefault();
+    }
+    if (e.ctrlKey && e.shiftKey && e.key == 'C') {
+        e.preventDefault();
+    }
+    if (e.ctrlKey && e.shiftKey && e.key == 'J') {
+        e.preventDefault();
+    }
+    if (e.ctrlKey && e.key == 'U') {
+        e.preventDefault();
+    }
+};
+  </script>
+
+  <script>
+      var content = document.querySelectorAll('.content');
+      content.forEach(function (element) {
+        element.style.display = 'block';
+      });
+
+      var navbar = document.querySelector('.navbar-ul');
+      navbar.style.display = 'block';
+
+      var backgroundMusic = document.getElementById('backgroundMusic');
+      backgroundMusic.volume = 0.1;
+      backgroundMusic.play();
+
+      window.removeEventListener('keydown', playMusic);
+      window.removeEventListener('click', playMusic);
+      window.removeEventListener('touchstart', playMusic);
+    }
+
+    window.addEventListener('keydown', playMusic);
+    window.addEventListener('click', playMusic);
+    window.addEventListener('touchstart', playMusic);
+
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'F12' || (e.key === 'Shift' && e.ctrlKey && e.key === 'I')) {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+</body>
+</html>
